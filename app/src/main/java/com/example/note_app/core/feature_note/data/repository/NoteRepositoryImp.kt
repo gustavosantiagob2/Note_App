@@ -6,7 +6,7 @@ import com.example.note_app.core.feature_note.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 
 class NoteRepositoryImp(
-    private val dao:NoteDao
+    private val dao: NoteDao
 ): NoteRepository {
 
     override fun getNotes(): Flow<List<Note>> {
