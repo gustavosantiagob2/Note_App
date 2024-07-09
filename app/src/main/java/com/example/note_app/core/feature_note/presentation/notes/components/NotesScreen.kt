@@ -22,17 +22,19 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarResult
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.note_app.core.feature_note.domain.util.Screen
 import com.example.note_app.core.feature_note.presentation.notes.NotesEvent
 import com.example.note_app.core.feature_note.presentation.notes.NotesViewModel
 import kotlinx.coroutines.launch
@@ -47,20 +49,22 @@ fun NotesScreen(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
-   Scaffold(
-       floatingActionButton = {
-           FloatingActionButton(
-               onClick = { /*TODO*/ },
-               backgroundColor = MaterialTheme.colors.primary
-           ) {
-               Icon(
-                   imageVector = Icons.Default.Add,
-                   contentDescription = "Add Note"
-               )
-           }
-       },
-       scaffoldState = scaffoldState
-   ) {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(Screen.AddEditNoteScreen.route)
+                },
+                backgroundColor = MaterialTheme.colors.primary
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add Note"
+                )
+            }
+        },
+        scaffoldState = scaffoldState
+    ) {
         Column(
 
             modifier = Modifier
@@ -98,7 +102,7 @@ fun NotesScreen(
                             .padding(vertical = 16.dp),
                         noteOrder = state.noteOrder,
                         onOrderChange = { it ->
-                            viewModel.onEvent(NotesEvent.Order(it))
+                             viewModel.onEvent(NotesEvent.Order(it))
                         }
                     )
                 }
@@ -112,7 +116,9 @@ fun NotesScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-
+                                    navController.navigate(
+                                        Screen.AddEditNoteScreen.route + "?noteId=${note.id}&noteColor=${note.color}"
+                                    )
                                 },
                             onDeleteClick = {
                                viewModel.onEvent(NotesEvent.DeleteNotes(note))
@@ -132,5 +138,5 @@ fun NotesScreen(
                 }
             }
         }
-   }
+    }
 }

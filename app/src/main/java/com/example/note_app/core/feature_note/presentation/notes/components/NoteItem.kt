@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.example.note_app.core.feature_note.domain.model.Note
 
+
 @Composable
 fun NoteItem(
     modifier: Modifier = Modifier,
@@ -95,3 +96,4 @@ fun NoteItem(
         }
     }
 }
+

@@ -39,6 +39,4 @@ fun DefaultRadioButton(
             style = MaterialTheme.typography.body1
         )
     }
-
-
 }
